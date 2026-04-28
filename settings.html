@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Settings</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header>
+    <img src="logo.jpg" width="110">
+    <h1>Settings</h1>
+</header>
+
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="converter.html">CONVERTER</a>
+    <a href="history.html">HISTORY</a>
+    <a href="settings.html">SETTINGS</a>
+    <a href="details.html">DETAILS</a>
+</nav>
+
+<section>
+
+<button onclick="toggleTheme()">Toggle Theme</button>
+<button onclick="saveSettings()">Save</button>
+
+<h3>Currency</h3>
+<select id="currency">
+<option>USD</option>
+<option>RWF</option>
+<option>EUR</option>
+</select>
+
+<h3>Language</h3>
+<select id="language">
+<option>English</option>
+<option>French</option>
+<option>Kinyarwanda</option>
+</select>
+
+</section>
+
+<script>
+function toggleTheme() {
+    document.body.classList.toggle("dark-mode");
+}
+
+function saveSettings() {
+    localStorage.setItem("theme",
+        document.body.classList.contains("dark-mode") ? "dark" : "light"
+    );
+
+    localStorage.setItem("currency", document.getElementById("currency").value);
+    localStorage.setItem("language", document.getElementById("language").value);
+
+    alert("Saved");
+}
+</script>
+
+<script src="theme.js"></script>
+</body>
+</html>

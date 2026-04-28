@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>History</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header>
+    <img src="logo.jpg" width="110">
+    <h1>History</h1>
+</header>
+
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="converter.html">CONVERTER</a>
+    <a href="history.html">HISTORY</a>
+    <a href="settings.html">SETTINGS</a>
+    <a href="details.html">DETAILS</a>
+</nav>
+
+<section>
+    <h2>Conversion History</h2>
+    <div id="historyList"></div>
+
+    <button onclick="clearHistory()">Clear</button>
+</section>
+
+<script>
+function loadHistory() {
+    let history = JSON.parse(localStorage.getItem("history")) || [];
+    let box = document.getElementById("historyList");
+
+    box.innerHTML = history.length === 0 ? "No history" : "";
+
+    history.forEach(h => {
+        box.innerHTML += `<p>${h.text}<br><small>${h.time}</small></p><hr>`;
+    });
+}
+
+function clearHistory() {
+    localStorage.removeItem("history");
+    loadHistory();
+}
+
+loadHistory();
+</script>
+
+<script src="theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Converter</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header>
+    <img src="logo.jpg" width="80">
+    <h2>Currency Converter</h2>
+</header>
+
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="converter.html">CONVERTER</a>
+    <a href="history.html">HISTORY</a>
+    <a href="settings.html">SETTINGS</a>
+    <a href="details.html">DETAILS</a>
+</nav>
+
+<section>
+
+<input type="number" id="amount" placeholder="Amount">
+
+<select id="from">
+<option>USD</option>
+<option>RWF</option>
+<option>EUR</option>
+</select>
+
+<button onclick="swap()">↔</button>
+
+<select id="to">
+<option>RWF</option>
+<option>USD</option>
+<option>EUR</option>
+</select>
+
+<br>
+
+<button onclick="convert()">Convert</button>
+
+<p id="result"></p>
+
+</section>
+
+<script>
+function convert() {
+    let amount = Number(document.getElementById("amount").value);
+    let from = document.getElementById("from").value;
+    let to = document.getElementById("to").value;
+
+    let rates = {
+        USD: { RWF: 1300, EUR: 0.92, USD: 1 },
+        RWF: { USD: 0.00077, EUR: 0.00071, RWF: 1 },
+        EUR: { USD: 1.09, RWF: 1400, EUR: 1 }
+    };
+
+    let result = amount * rates[from][to];
+
+    document.getElementById("result").innerText =
+        `${amount} ${from} = ${result.toFixed(2)} ${to}`;
+
+    let history = JSON.parse(localStorage.getItem("history")) || [];
+
+    history.push({
+        text: `${amount} ${from} = ${result.toFixed(2)} ${to}`,
+        time: new Date().toLocaleString()
+    });
+
+    localStorage.setItem("history", JSON.stringify(history));
+}
+
+function swap() {
+    let from = document.getElementById("from");
+    let to = document.getElementById("to");
+
+    [from.value, to.value] = [to.value, from.value];
+}
+</script>
+
+<script src="theme.js"></script>
+</body>
+</html>
